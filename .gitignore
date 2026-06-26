@@ -6,8 +6,11 @@ __pycache__/
 *.log
 
 notebooks/.ipynb_checkpoints/
+notebooks/reports/
 data/*.csv
 data/*.html
+data/*.txt
+data/*.xlsx
 
 .pytest_cache/
 .mypy_cache/

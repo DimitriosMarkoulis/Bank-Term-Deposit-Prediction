@@ -12,9 +12,11 @@ bank-marketing-mlops/
 |-- notebooks/
 |   |-- 01_eda.ipynb
 |-- src/
+|   |-- config.py
 |   |-- data/
 |   |   |-- load_data.py
 |   |-- preprocess/
+|   |   |-- preprocessing.py
 |   |-- models/
 |-- CHANGELOG.md
 |-- requirements.txt
@@ -49,3 +51,11 @@ python -m src.data.load_data
 ```
 
 Open `notebooks/01_eda.ipynb` for exploratory data analysis.
+
+## Version 2
+
+```powershell
+python -m src.preprocess.preprocessing
+```
+
+The preprocessing script prints the split sizes, transformed training shape, and a compact preview of the transformed training data.
