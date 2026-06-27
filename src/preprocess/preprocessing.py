@@ -1,4 +1,4 @@
-"""Preprocessing pipeline for model training."""
+"""Preprocessing utilities for model training."""
 
 import pandas as pd
 from sklearn.compose import ColumnTransformer
@@ -6,7 +6,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import OneHotEncoder, StandardScaler
 
-from src.config import (
+from src.config.config import (
     RANDOM_STATE,
     TARGET_COLUMN,
     TEST_SIZE,
@@ -58,8 +58,8 @@ def engineer_features(X: pd.DataFrame) -> pd.DataFrame:
     return X
 
 
-def build_transformer(X_train: pd.DataFrame) -> ColumnTransformer:
-    """Create the numeric and categorical preprocessing transformer."""
+def build_preprocessor(X_train: pd.DataFrame) -> ColumnTransformer:
+    """Create the numeric and categorical preprocessor."""
 
     binary_features = ["default", "housing", "loan", "was_previously_contacted"]
     numeric_features = [
@@ -90,8 +90,8 @@ def build_transformer(X_train: pd.DataFrame) -> ColumnTransformer:
     )
 
 
-def fit_preprocessing_pipeline(data: pd.DataFrame | None = None) -> dict:
-    """Split data, engineer features, and fit the preprocessing transformer."""
+def prepare_data(data: pd.DataFrame | None = None) -> dict:
+    """Load, split, and engineer features without fitting a model."""
 
     source_data = load_data() if data is None else data
     X_train, X_val, X_test, y_train, y_val, y_test = split_train_val_test(source_data)
@@ -100,11 +100,7 @@ def fit_preprocessing_pipeline(data: pd.DataFrame | None = None) -> dict:
     X_val = engineer_features(X_val)
     X_test = engineer_features(X_test)
 
-    transformer = build_transformer(X_train)
-    transformer.fit(X_train)
-
     return {
-        "transformer": transformer,
         "X_train": X_train,
         "X_val": X_val,
         "X_test": X_test,
@@ -114,15 +110,28 @@ def fit_preprocessing_pipeline(data: pd.DataFrame | None = None) -> dict:
     }
 
 
+def fit_preprocessor(data: pd.DataFrame | None = None) -> dict:
+    """Fit the preprocessor on the training features only."""
+
+    prepared_data = prepare_data(data)
+    preprocessor = build_preprocessor(prepared_data["X_train"])
+    preprocessor.fit(prepared_data["X_train"])
+
+    return {
+        "preprocessor": preprocessor,
+        **prepared_data,
+    }
+
+
 def transform_to_dataframe(
-    transformer: ColumnTransformer,
+    preprocessor: ColumnTransformer,
     X: pd.DataFrame,
 ) -> pd.DataFrame:
     """Transform features and keep readable column names."""
 
     return pd.DataFrame(
-        transformer.transform(X),
-        columns=transformer.get_feature_names_out(),
+        preprocessor.transform(X),
+        columns=preprocessor.get_feature_names_out(),
         index=X.index,
     )
 
@@ -130,9 +139,9 @@ def transform_to_dataframe(
 def main() -> None:
     """Run preprocessing and print a compact preview."""
 
-    result = fit_preprocessing_pipeline()
+    result = fit_preprocessor()
     X_train_transformed = transform_to_dataframe(
-        result["transformer"],
+        result["preprocessor"],
         result["X_train"],
     )
 

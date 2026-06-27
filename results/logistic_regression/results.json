@@ -1,0 +1,70 @@
+{
+  "model_id": "logistic_regression",
+  "model": "LogisticRegression",
+  "positive_class": "yes",
+  "hyperparameters": {
+    "max_iter": 1000,
+    "class_weight": "balanced"
+  },
+  "metrics": {
+    "train": {
+      "accuracy": 0.844,
+      "precision": 0.4155,
+      "recall": 0.8216,
+      "f1": 0.5519,
+      "roc_auc": 0.9107,
+      "average_precision": 0.5505,
+      "pr_auc": 0.5503
+    },
+    "validation": {
+      "accuracy": 0.8446,
+      "precision": 0.4161,
+      "recall": 0.8138,
+      "f1": 0.5507,
+      "roc_auc": 0.9127,
+      "average_precision": 0.5481,
+      "pr_auc": 0.5471
+    },
+    "test": {
+      "accuracy": 0.8456,
+      "precision": 0.4184,
+      "recall": 0.8185,
+      "f1": 0.5537,
+      "roc_auc": 0.9079,
+      "average_precision": 0.5369,
+      "pr_auc": 0.5359
+    }
+  },
+  "confusion_matrices": {
+    "train": {
+      "actual_no": {
+        "predicted_no": 20286,
+        "predicted_yes": 3667
+      },
+      "actual_yes": {
+        "predicted_no": 566,
+        "predicted_yes": 2607
+      }
+    },
+    "validation": {
+      "actual_no": {
+        "predicted_no": 6776,
+        "predicted_yes": 1208
+      },
+      "actual_yes": {
+        "predicted_no": 197,
+        "predicted_yes": 861
+      }
+    },
+    "test": {
+      "actual_no": {
+        "predicted_no": 6781,
+        "predicted_yes": 1204
+      },
+      "actual_yes": {
+        "predicted_no": 192,
+        "predicted_yes": 866
+      }
+    }
+  }
+}

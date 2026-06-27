@@ -1,4 +1,5 @@
 pandas>=2.2,<3.0
 scikit-learn>=1.5,<2.0
+joblib>=1.4,<2.0
 ydata-profiling>=4.12,<5.0
 ipython>=8.0,<10.0

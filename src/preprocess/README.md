@@ -12,10 +12,16 @@ Preprocessing pipeline for model training.
 raw data
   -> train/validation/test split
   -> feature engineering
-  -> numeric preprocessing
-  -> categorical preprocessing
-  -> transformed model-ready data
+  -> preprocessor definition
+  -> model pipeline
 ```
+
+## Main Functions
+
+- `prepare_data()` loads, splits, and engineers features.
+- `build_preprocessor()` defines numeric, binary, and categorical preprocessing.
+- `fit_preprocessor()` is used for preprocessing inspection only.
+- `transform_to_dataframe()` converts transformed arrays back to named columns.
 
 ## What It Does
 
@@ -27,11 +33,17 @@ raw data
 - scales continuous numeric features with `StandardScaler`
 - one-hot encodes multi-class categorical features
 - keeps `"unknown"` as a valid category
-- fits the transformer only on the training set
+- provides a preprocessor that model pipelines fit only on training data
+
+## What It Does Not Do
+
+- it does not train models
+- it does not calculate model metrics
+- it does not save model artifacts
 
 ## Why This Matters
 
-The transformer is fitted only on training data to avoid data leakage. Validation, test, and future prediction data must reuse the fitted transformer.
+The preprocessor is fitted only on training data inside each model pipeline. This avoids data leakage and lets future scripts swap in different algorithms.
 
 ## Run
 
@@ -60,4 +72,4 @@ These are not implemented yet, but they are good candidates to test later:
 
 ## Used Later By
 
-Future `training.py` should import this preprocessing pipeline instead of recreating split or transformation logic.
+Future model scripts should import this preprocessing pipeline instead of recreating split or transformation logic.

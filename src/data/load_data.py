@@ -3,7 +3,7 @@
 from pathlib import Path
 import pandas as pd
 
-from src.config import DATA_PATH
+from src.config.config import DATA_PATH
 
 
 def load_data(path: Path | None = None) -> pd.DataFrame:

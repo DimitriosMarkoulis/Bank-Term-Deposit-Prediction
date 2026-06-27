@@ -9,8 +9,11 @@ notebooks/.ipynb_checkpoints/
 notebooks/reports/
 data/*.csv
 data/*.html
+data/*.json
 data/*.txt
 data/*.xlsx
+results/**/*.csv
+results/**/*.joblib
 
 .pytest_cache/
 .mypy_cache/

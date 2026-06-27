@@ -2,9 +2,10 @@
 
 from pathlib import Path
 
-PROJECT_ROOT = Path(__file__).resolve().parents[1]
+PROJECT_ROOT = Path(__file__).resolve().parents[2]
 DATA_DIR = PROJECT_ROOT / "data"
 DATA_PATH = DATA_DIR / "bank-full.csv"
+RESULTS_DIR = PROJECT_ROOT / "results"
 
 TARGET_COLUMN = "y"
 TRAIN_SIZE = 0.60
